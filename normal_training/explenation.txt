@@ -1,0 +1,2 @@
+center crop 512 
+batch size 32
