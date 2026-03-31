@@ -1,2 +1,5 @@
 data/
 env
+train.sh
+report
+report/
