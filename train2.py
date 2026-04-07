@@ -45,7 +45,7 @@ def main():
     
     print(dataset.class_to_idx)
 
-    train(model, device=device, train_loader=train_loader, val_loader=val_loader, epochs=20, batch_size=32)
+    train(model, device=device, train_loader=train_loader, val_loader=val_loader, epochs=200, batch_size=32)
 
 
 def train(model, device, train_loader, val_loader, epochs=10, batch_size=32):
@@ -73,7 +73,7 @@ def train(model, device, train_loader, val_loader, epochs=10, batch_size=32):
                 # Forward pass
                 outputs = model(inputs)
                 loss = criterion(outputs, labels)
-                
+
                 # Backward pass and optimize
                 loss.backward()
                 optimizer.step()
