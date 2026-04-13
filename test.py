@@ -12,9 +12,10 @@ from torch.utils.data import Subset
 import pandas as pd
 from PIL import Image
 from torch.utils.data import Dataset
+import sys
 
 
-def main():
+def main(**kwargs):
     # Setup
     # Identify available device
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
@@ -27,8 +28,13 @@ def main():
     num_features = model.fc.in_features
     model.fc = nn.Linear(num_features, 10)
 
+    if len(sys.argv) > 1:
+        path = sys.argv[1] 
+    else:
+        print("Please provide the path to the trained model weights as a command line argument.")
+        exit(1)
     #load the trained model weights
-    model.load_state_dict(torch.load("training_with_augmentation/best_model.pth"))
+    model.load_state_dict(torch.load(path))
 
     #get dataset
     test_data = CSVImageDataset(csv_file="data/Test Dataset Labels.csv", img_dir="data/test", transform=transforms.Compose([
@@ -110,7 +116,8 @@ def test(model, device, test_loader, batch_size=32):
         "predicted_label": all_preds,
         "true_label": all_labels
     })
-    results_df.to_csv("test_predictions.csv", index=False)
+    save_path = sys.argv[2]  if len(sys.argv) > 2  else "test_predictions.csv"
+    results_df.to_csv(save_path, index=False)
 
 if __name__ == "__main__":
     main()

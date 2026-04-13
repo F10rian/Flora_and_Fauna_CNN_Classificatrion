@@ -22,3 +22,26 @@ pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu12
 
 
 ## Training
+
+For regular training with just center crop:
+
+```bash
+python train.py
+```
+
+For training with augmentation (random crop, resize, color jitter):
+
+```bash
+python train_with_aug.py
+```
+
+## Testing
+
+For testing exchange the first argument for the path to your models weights, second argument is the name the results will be saved to:
+```bash
+python test.py .\training_with_augmentation\best_model.pth test_test.csv
+```
+
+## Validation
+
+Validation is found in validation.ipynb.
